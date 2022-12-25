@@ -10,12 +10,12 @@ namespace XadrezConsole
             {
                 for (int j = 0; j < tabuleiro.Colunas; j++)
                 {
-                    if (tabuleiro.getPeca(i, j) == null)
+                    if (tabuleiro.GetPeca(i, j) == null)
                     {
                         Console.Write("- ");
                     }else
                     {
-                        Console.Write($"{tabuleiro.getPeca(i, j)} ");
+                        Console.Write($"{tabuleiro.GetPeca(i, j)} ");
                     }
 
                 }
