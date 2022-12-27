@@ -14,6 +14,11 @@
             Tabuleiro= tabuleiro;
             qtdMovimentos = 0;
         }
+        protected bool PodeMover(Posicao posicao)
+        {
+            Peca peca = Tabuleiro.GetPeca(posicao);
+            return posicao == null || peca.Cor != Cor;
+        }
         public abstract bool[,] MovimentosPossiveis();
     }
 }
