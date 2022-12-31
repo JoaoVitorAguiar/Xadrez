@@ -9,17 +9,20 @@ namespace XadrezConsole
     {
         static void Main(string[] args)
         {
-            try
+            PartidaDeXadrez partida = new PartidaDeXadrez();
+            while (!partida.Terminada)
             {
-                PartidaDeXadrez partida = new PartidaDeXadrez();
-                while(!partida.Terminada)
+                try
                 {
                     Console.Clear();
                     Tela.ImprimirTabuleiro(partida.Tabuleiro);
+                    Console.WriteLine($"\nTurno: {partida.Turno}");
+                    Console.WriteLine($"Aguardgando jogada: {partida.JogadorAtual}");
 
                     Console.WriteLine();
-                    Console.Write("origem: ");
+                    Console.Write("O rigem: ");
                     Posicao origem = Tela.LerPosicaoXadrez().ToPosicao();
+                    partida.ValidarPosicaoOrigem(origem);
 
                     bool[,] posicoesPossiveis = partida.Tabuleiro.GetPeca(origem).MovimentosPossiveis();
                     Console.Clear();
@@ -28,13 +31,14 @@ namespace XadrezConsole
                     Console.Write("Destino: ");
                     Posicao destino = Tela.LerPosicaoXadrez().ToPosicao();
 
-                    partida.ExecutaMovimento(origem, destino);
+                    partida.RealizaJogada(origem, destino);
                 }
-            } catch( TabuleiroException ex) 
-            {
-                Console.WriteLine(ex.Message);
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    Console.ReadLine();
+                }
             }
-            
         }
     }
 }

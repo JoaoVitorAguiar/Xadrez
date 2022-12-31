@@ -46,10 +46,7 @@ namespace xadrez
                 if (Tabuleiro.GetPeca(posicao) != null && Tabuleiro.GetPeca(posicao).Cor != Cor) break;
                 posicao.Coluna = posicao.Coluna - 1;
             }
-
-
             return matriz;
-
         }
 
         public override string ToString()
