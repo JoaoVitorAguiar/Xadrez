@@ -55,5 +55,11 @@ namespace xadrez
             if (!Tabuleiro.GetPeca(posicao).ExisteMovimentosPossiveis())
                 throw new TabuleiroException("Não há movimento possiveis para a peça de origem escolhida");
         }
+
+        public void ValidarPosicaoDestino(Posicao origem, Posicao destino)
+        {
+            if (!Tabuleiro.GetPeca(origem).PodeMoverPara(destino))
+                throw new TabuleiroException("Posiçao de destino inválida");
+        }
     }
 }
