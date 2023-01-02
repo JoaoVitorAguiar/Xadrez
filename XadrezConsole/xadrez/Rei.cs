@@ -32,7 +32,7 @@ namespace xadrez
                 matriz[posicao.Linha, posicao.Coluna] = true;
 
             // Sul
-            posicao.DefinirValores(Posicao.Linha - 1, Posicao.Coluna);
+            posicao.DefinirValores(Posicao.Linha + 1, Posicao.Coluna);
             if (Tabuleiro.PosicaoValida(posicao) && PodeMover(posicao))
                 matriz[posicao.Linha, posicao.Coluna] = true;
 
