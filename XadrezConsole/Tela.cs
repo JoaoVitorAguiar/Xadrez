@@ -40,7 +40,7 @@ namespace XadrezConsole
                 Console.WriteLine();
             }
             Console.WriteLine("  A B C D E F G H");
-  
+
         }
         public static PosicaoXadrez LerPosicaoXadrez()
         {
@@ -72,8 +72,17 @@ namespace XadrezConsole
             ImprimirPecasCapturadas(partida);
             Console.WriteLine();
             Console.WriteLine($"\nTurno: {partida.Turno}");
-            Console.WriteLine($"Aguardgando jogada: {partida.JogadorAtual}");
-            if (partida.Xeque) Console.WriteLine("Você está em Xeque!");
+            if (!partida.Terminada)
+            {
+                Console.WriteLine($"Aguardgando jogada: {partida.JogadorAtual}");
+                if (partida.Xeque) Console.WriteLine("Você está em Xeque!");
+            }
+            else
+            {
+                Console.WriteLine("XEQUEMATE");
+                Console.WriteLine("Vencedor: " + partida.Adversaio(partida.JogadorAtual));
+            }
+
         }
 
         private static void ImprimirPecasCapturadas(PartidaDeXadrez partida)
@@ -95,7 +104,7 @@ namespace XadrezConsole
             string output = "[ ";
             foreach (Peca p in conjunto)
                 output += $"{p} ";
-            output += "]" ;
+            output += "]";
             Console.WriteLine(output);
         }
     }

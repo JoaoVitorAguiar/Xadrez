@@ -30,6 +30,7 @@ namespace XadrezConsole
                     partida.ValidarPosicaoDestino(origem, destino);
 
                     partida.RealizaJogada(origem, destino);
+      
                 }
                 catch (Exception ex)
                 {
@@ -37,6 +38,8 @@ namespace XadrezConsole
                     Console.ReadLine();
                 }
             }
+            Console.Clear();
+            Tela.ImprimirPartida(partida);
         }
     }
 }
