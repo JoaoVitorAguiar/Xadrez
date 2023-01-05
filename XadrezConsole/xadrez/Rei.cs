@@ -4,7 +4,22 @@ namespace xadrez
 {
     internal class Rei : Peca
     {
-        public Rei(Tabuleiro tabuleiro, Cor cor) : base(tabuleiro, cor) { }
+        private PartidaDeXadrez Partida;
+        public Rei(Tabuleiro tabuleiro, Cor cor, PartidaDeXadrez partida) : base(tabuleiro, cor) 
+        {
+            Partida = partida;
+        }
+
+        public override string ToString()
+        {
+            return "R";
+        }
+
+        private bool TesteTorreRoque(Posicao pos)
+        {
+            Peca p = Tabuleiro.GetPeca(pos);
+            return p != null && p is Torre && p.Cor == Cor && p.qtdMovimentos == 0;
+        }
 
         public override bool[,] MovimentosPossiveis()
         {
@@ -51,13 +66,33 @@ namespace xadrez
             if (Tabuleiro.PosicaoValida(posicao) && PodeMover(posicao))
                 matriz[posicao.Linha, posicao.Coluna] = true;
 
+            // # Jogada Especial - roque
+            if (qtdMovimentos == 0 && !Partida.Xeque)
+            {
+                // Roque pequeno
+                Posicao posT1 = new Posicao(Posicao.Linha, Posicao.Coluna + 3);
+                if (TesteTorreRoque(posT1))
+                {
+                    Posicao p1 = new Posicao(Posicao.Linha, Posicao.Coluna + 1);
+                    Posicao p2 = new Posicao(Posicao.Linha, Posicao.Coluna + 2);
+                    if (Tabuleiro.GetPeca(p1) == null && Tabuleiro.GetPeca(p2) == null)
+                        matriz[Posicao.Linha, Posicao.Coluna + 2] = true;
+                }
+                // Roque pequeno
+                Posicao posT2 = new Posicao(Posicao.Linha, Posicao.Coluna - 4);
+                if (TesteTorreRoque(posT2))
+                {
+                    Posicao p1 = new Posicao(Posicao.Linha, Posicao.Coluna - 1);
+                    Posicao p2 = new Posicao(Posicao.Linha, Posicao.Coluna - 2);
+                    Posicao p3 = new Posicao(Posicao.Linha, Posicao.Coluna - 3);
+                    if (Tabuleiro.GetPeca(p1) == null && Tabuleiro.GetPeca(p2) == null && Tabuleiro.GetPeca(p3) == null)
+                        matriz[Posicao.Linha, Posicao.Coluna - 2] = true;
+                }
+            }
+
+
+
             return matriz;
-
-        }
-
-        public override string ToString()
-        {
-            return "R";
         }
     }
 }
